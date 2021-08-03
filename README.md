@@ -22,8 +22,17 @@ iOS개발자들에게 필요한 자료들을 정리하고 있는 중입니다.
 
 ## iOS
 - Bounds 와 Frame 의 차이점을 설명하시오.
+```
+https://babbab2.tistory.com/45?category=831129
+
+Frame: Super View의 좌표계
+Bound: 자신 View의 ViewPort(보이는 부분의 위치)
+```
 - 실제 디바이스가 없을 경우 개발 환경에서 할 수 있는 것과 없는 것을 설명하시오.
 - 앱의 콘텐츠나 데이터 자체를 저장/보관하는 특별한 객체를 무엇이라고 하는가?
+```
+UserDefault, Keychain 
+```
 - 앱 화면의 콘텐츠를 표시하는 로직과 관리를 담당하는 객체를 무엇이라고 하는가?
 - App thinning에 대해서 설명하시오.
 ###
@@ -38,13 +47,39 @@ iOS개발자들에게 필요한 자료들을 정리하고 있는 중입니다.
 ###
 - NSOperationQueue 와 GCD Queue 의 차이점을 설명하시오.
 - GCD API 동작 방식과 필요성에 대해 설명하시오.
+```
+Serial Queue: Queue에 들어온 작업을 순차적으로 진행
+Concurrent Queue: Queue에 들어온 작업을 여러개를 동시에 작업 가능
+Sync: Queue를 Block상태로 만듬 (ex, MainQueue Deadlock)
+Async: Queue를 Block상태로 만들지 않음
+
+나의 UseCase) UI 사용하는 경우, 모든 UI를 체크한 후 일정 시간 UI가 닫히는 동작을 위해 Serial Queue를 이요하여 개발
+Objc Singlton을 위한 once, Semephore 등
+```
 - Global DispatchQueue 의 Qos 에는 어떤 종류가 있는지, 각각 어떤 의미인지 설명하시오.
+```
+| QoS Class       	| 사용 예                                                                                                                                                         	| 소요시간        	|
+|-----------------	|-----------------------------------------------------------------------------------------------------------------------------------------------------------------	|-----------------	|
+| userInteractive 	| Main Thread 에서 실행되는 UI 처리. Animation UI 업데이트                                                                                                        	| 순식간에 끝 !   	|
+| userInitiated   	| 사용자의 행동에 반응. 저장된 파일을 열거나 할때 사용.                                                                                                           	| 순식간 ~ 몇 초  	|
+| default         	|                                                                                                                                                                 	|                 	|
+| utility         	| 어느정도 계산이 필요하고 즉각적인 결과가 필요하지는 않을 때. 처리 정도가 ProgressBar에 표시할 필요한 처리. 네트워크, 다운로드, 계산, 데이터를 가져오는 처리 등. 	| 몇 초 ~ 몇 분   	|
+| background      	| 뒤에서 실행되어서 사용자에겐 보이지 않는 처리. 백업 등. 사용자가 iPhone에서 저전력모드를 설정해 두면 background 로 설정된Task는 일시중지되어 실행되지 않는다.   	| 몇 분 ~ 몇 시간 	|
+
+참고: https://unnnyong.me/2020/05/14/ios-thread-queue-gcd-qos/
+```
 ###
 - iOS 앱을 만들고, User Interface를 구성하는 데 필수적인 프레임워크 이름은 무엇인가?
 - Foundation Kit은 무엇이고 포함되어 있는 클래스들은 어떤 것이 있는지 설명하시오.
 - Delegate란 무언인가 설명하고, retain 되는지 안되는지 그 이유를 함께 설명하시오.
+```
+
+```
 - NotificationCenter 동작 방식과 활용 방안에 대해 설명하시오.
 - UIKit 클래스들을 다룰 때 꼭 처리해야하는 애플리케이션 쓰레드 이름은 무엇인가?
+```
+Main Thread
+```
 - App Bundle의 구조와 역할에 대해 설명하시오.
 - 모든 View Controller 객체의 상위 클래스는 무엇이고 그 역할은 무엇인가?
 - 자신만의 Custom View를 만들려면 어떻게 해야하는지 설명하시오.
@@ -144,6 +179,10 @@ Ball *ball = [[[[Ball alloc] init] autorelease] autorelease];
 
 ## Objective-C
 - Swift의 클로저와 Objective-C의 블록은 어떤 차이가 있는가?
+```
+Swift: Reference Capture 
+ObjC:  Value Copy Capture (__block 구문을 사용하여 Reference Capture로 변경 가능), Reference Type Capture 
+```
 - Mutable 객체과 Immutable 객체는 어떤것이 있는지 예를 들고, 차이점을 설명하시오.
 - dynamic과 property 의미와 차이를 설명하시오.
 - @property로 선언한 NSString* title 의 getter/setter 메서드를 구현해보시오.
